@@ -35,8 +35,6 @@
   </xsl:template>
 
   <xsl:template match="tmarc:r">
-    <xsl:variable name="title_medium" select="tmarc:d245/tmarc:sh"/>
-
     <!-- Assemble the parent’s title from 773 $a and $t. -->
     <xsl:variable name="parent-title">
       <xsl:value-of select="tmarc:d773/tmarc:sa"/>
