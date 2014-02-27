@@ -37,4 +37,4 @@ Addition of `-P` parameter to query pazpar2 at a specific path on the server.
 
 
 ## Contact
-For corrections, questions or suggestions please get in touch with [Sven-S. Porst](mailto:porst@sub.uni-goettingen.de) at SUB Göttingen, or fork the repository and push your changes.
+For corrections, questions or suggestions please get in touch with [Sven-S. Porst](mailto:ssp-web@earthlingsoft.net), or fork the repository and push your changes.
