@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	tmarc.xsl
-	Stylesheet to extract Marc 21 fields from Indexdata’s streamlined
-	turbomarc XML format to an internal metadat model for pazpar2.
+	Stylesheet to extract MARC21 fields from Index Data’s streamlined
+	TurboMarc XML format to an internal metadata model for pazpar2.
 
-	Mostly based on Indexdata’s original tmarc.xsl from
+	Mostly based on Index Data’s original tmarc.xsl from
 	http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=etc/tmarc.xsl;hb=HEAD
 
-	In parts modified, extended, streamlined by
-	Sven-S. Porst, SUB Göttingen <porst@sub.uni-goettingen.de>
+	In parts modified, extended and streamlined
+	2010-2014 Sven-S. Porst <ssp-web@earthlingsoft.net>
 
 	This version can be found in the repository at github:
 	https://github.com/ssp/pazpar2-etc/
