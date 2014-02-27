@@ -598,14 +598,15 @@
 
       <!-- Note fields
            [general/500, with/501, dissertation/502, formatted contents/505,
-            event/518, summary/520, geographic coverage/522]
-           Concatenate their values with commas in between and write a description field.
+           event/518, summary/520, geographic coverage/522]
+           Concatenate all their subfields other than $0 with commas in between
+           and write a description field.
            Ignore abstracts (520 with i1=3) which are treated separately below.
       -->
       <xsl:for-each select="tmarc:d500 | tmarc:d501 | tmarc:d502 | tmarc:d505 |
                             tmarc:d518 | tmarc:d520[@i1!='3'] | tmarc:d522">
         <pz:metadata type="description">
-          <xsl:for-each select="./*">
+          <xsl:for-each select="./*[local-name()!='s0']">
             <xsl:value-of select="text()"/>
             <xsl:if test="position()!=last() and .!=''">
               <xsl:text>, </xsl:text>
