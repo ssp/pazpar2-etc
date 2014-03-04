@@ -331,40 +331,77 @@
         </xsl:if>
       </xsl:for-each>
 
-      <xsl:for-each select="tmarc:d110">
-        <xsl:for-each select="tmarc:sa">
-          <pz:metadata type="corporate-name">
+      <xsl:for-each select="tmarc:d110 | tmarc:d710 | tmarc:d111 | tmarc:d711">
+        <xsl:variable name="field">
+          <xsl:choose>
+            <xsl:when test="substring(local-name(.), 3, 2) = '10'">corporate</xsl:when>
+            <xsl:otherwise>meeting</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        
+        <xsl:variable name="level">
+          <xsl:choose>
+            <xsl:when test="substring(local-name(.), 2, 1) = '1'">main</xsl:when>
+            <xsl:otherwise>other</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        
+        <xsl:variable name="location">
+          <xsl:for-each select="tmarc:sc">
+            <xsl:if test="position() != 1">
+              <xsl:text>, </xsl:text>
+            </xsl:if>
             <xsl:value-of select="."/>
-          </pz:metadata>
-        </xsl:for-each>
-        <xsl:for-each select="tmarc:sc">
-          <pz:metadata type="corporate-location">
-            <xsl:value-of select="."/>
-          </pz:metadata>
-        </xsl:for-each>
-        <xsl:for-each select="tmarc:sd">
-          <pz:metadata type="corporate-date">
-            <xsl:value-of select="."/>
-          </pz:metadata>
-        </xsl:for-each>
-      </xsl:for-each>
+          </xsl:for-each>
+        </xsl:variable>
 
-      <xsl:for-each select="tmarc:d111">
+        <xsl:variable name="date">
+          <xsl:for-each select="tmarc:sd">
+            <xsl:if test="position() != 1">
+              <xsl:text>, </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="."/>
+          </xsl:for-each>
+        </xsl:variable>
+        
         <xsl:for-each select="tmarc:sa">
-          <pz:metadata type="meeting-name">
+          <pz:metadata type="{$field}">
+            <xsl:attribute name="level">
+              <xsl:value-of select="$level"/>
+            </xsl:attribute>
+            <xsl:if test="string-length($location) &gt; 0">
+              <xsl:attribute name="location">
+                <xsl:value-of select="$location"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="string-length($date) &gt; 0">
+              <xsl:attribute name="date">
+                <xsl:value-of select="$date"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:value-of select="."/>
+            <xsl:for-each select="../tmarc:sb">
+              <xsl:text>, </xsl:text>
+              <xsl:value-of select="."/>
+            </xsl:for-each>
+          </pz:metadata>
+          
+          <pz:metadata type="{$field}-name">
             <xsl:value-of select="."/>
           </pz:metadata>
         </xsl:for-each>
-        <xsl:for-each select="tmarc:sc">
-          <pz:metadata type="meeting-location">
-            <xsl:value-of select="."/>
+        
+        <xsl:if test="string-length($location) &gt; 1">
+          <pz:metadata type="{$field}-location">
+            <xsl:value-of select="$location"/>
           </pz:metadata>
-        </xsl:for-each>
-        <xsl:for-each select="tmarc:sd">
-          <pz:metadata type="meeting-date">
-            <xsl:value-of select="."/>
+        </xsl:if>
+        
+        <xsl:if test="string-length($date) &gt; 1">
+          <pz:metadata type="{$field}-date">
+            <xsl:value-of select="$date"/>
           </pz:metadata>
-        </xsl:for-each>
+        </xsl:if>
       </xsl:for-each>
 
       <xsl:for-each select="tmarc:d260">
@@ -608,24 +645,6 @@
             <xsl:value-of select="text()"/>
             <xsl:if test="position()!=last() and .!=''">
               <xsl:text>, </xsl:text>
-            </xsl:if>
-          </xsl:for-each>
-        </pz:metadata>
-      </xsl:for-each>
-
-      <!-- Corporate name (710) or meeting name (711):
-           Join the (non-control) subfields of these fields with spaces
-           as separators so they are reasonably legible and write into
-           a description field.
-      -->
-      <xsl:for-each select="tmarc:d710 | tmarc:d711">
-        <pz:metadata type="description">
-          <xsl:for-each select="./*[local-name() != 's0' and local-name() != 's3'
-                                    and local-name() != 's5' and local-name() != 's6'
-                                    and local-name() != 's8']">
-            <xsl:value-of select="text()"/>
-            <xsl:if test="position()!=last() and .!=''">
-              <xsl:text> </xsl:text>
             </xsl:if>
           </xsl:for-each>
         </pz:metadata>
