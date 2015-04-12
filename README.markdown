@@ -3,7 +3,7 @@ This repository contains modified copies of [Index Data](http://www.indexdata.co
 
 ## Content
 ### tmarc.xsl
-Index Data’s great [tmarc.xsl](http://git.indexdata.com/?p=pazpar2.git;a=blob;f=etc/tmarc.xsl) maps from MARC 21 fields to the fields of pazpar2’s internal data model. A few refinements to the stylesheet are commited here. Notably:
+Index Data’s great [tmarc.xsl](http://git.indexdata.com/?p=pazpar2.git;a=blob;f=etc/xsl/tmarc.xsl) maps from MARC 21 fields to the fields of pazpar2’s internal data model. A few refinements to the stylesheet are commited here. Notably:
 
 * extraction of language codes from MARC 008 and 041
 * DOI recognition, map MARC 024 with $2=doi and 856 to `doi`
@@ -26,7 +26,7 @@ Index Data’s great [tmarc.xsl](http://git.indexdata.com/?p=pazpar2.git;a=blob;
 
 
 ### solr-pz2.xsl
-Rewrite of [Index Data’s solr-pz2.xsl](http://git.indexdata.com/?p=pazpar2.git;a=blob;f=etc/solr-pz2.xsl;h=b5d2f75a75c169356e870b0a122370ebea54327a;hb=HEAD) for converting Solr Documents to records of pz:metadata elements.
+Rewrite of [Index Data’s solr-pz2.xsl](http://git.indexdata.com/?p=pazpar2.git;a=blob;f=etc/xsl/solr-pz2.xsl;h=b5d2f75a75c169356e870b0a122370ebea54327a;hb=HEAD) for converting Solr Documents to records of pz:metadata elements.
 * more generic structure
 * handles more field types
 * does not introduce a »medium« field
